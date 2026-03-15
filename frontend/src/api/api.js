@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api',
     withCredentials: true, // Obrigatório para Cookies HttpOnly
-    timeout: 10000, // 10 segundos para não travar a UI
+    timeout: 60000, // 10 segundos para não travar a UI
     headers: {
         'Content-Type': 'application/json',
     }
