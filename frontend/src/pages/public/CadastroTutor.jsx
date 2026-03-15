@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
+import ChatBot from '../../components/shared/ChatBot';
 
 // Componentes de UI Inteligentes
 import { Button } from '../../components/ui/Button';
@@ -580,6 +581,7 @@ const CadastroTutor = () => {
                     </div>
                 </div>
             )}
+            <ChatBot />
         </div>
     );
 };

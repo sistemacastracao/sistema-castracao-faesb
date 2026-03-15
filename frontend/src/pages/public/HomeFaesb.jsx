@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/api';
 import CadastroTutor from './CadastroTutor';
+import ChatBot from '../../components/shared/ChatBot';
 import {
     Clock, Instagram, Mail, ShieldCheck,
     Loader2, BellRing, MapPin, GraduationCap
@@ -126,6 +127,7 @@ const HomeFaesb = () => {
                     </div>
                 </div>
             </footer>
+            <ChatBot />
         </div>
     );
 };
