@@ -1,4 +1,4 @@
-import logoFaesb from "/src/assets/faesb.jpg";
+import logoFaesb from "../../assets/faesb.jpg";
 
 export const Navbar = () => {
   return (

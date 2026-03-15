@@ -12,7 +12,7 @@ import {
     Stethoscope, CreditCard, CheckCircle, UploadCloud,
     PawPrint, MapPin, User, Mail, Phone, Hash, Info
 } from 'lucide-react';
-import logoVet from "/src/assets/veterinaria.jpg";
+import logoVet from "../../assets/veterinaria.jpg";
 
 const CadastroTutor = () => {
     const [sistemaAberto, setSistemaAberto] = useState(true);

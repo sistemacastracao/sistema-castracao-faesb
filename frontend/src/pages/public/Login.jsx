@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import api from '../../api/api';
 import toast from 'react-hot-toast';
+import logoFaesb from '../../assets/faesb.jpg';
 
 // Componentes UI de alto padrão
 import { Input } from '../../components/ui/Input';
@@ -63,7 +64,7 @@ const Login = () => {
                 {/* Branding FAESB */}
                 <div className="mb-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
                     <div className="inline-flex items-center justify-center w-20 h-20 bg-[#1B365D] rounded-[2rem] shadow-2xl mb-4">
-                        <img src="/src/assets/faesb.jpg" alt="Logo" className="w-12 h-12 object-contain rounded-lg bg-white p-1" />
+                        <img src={logoFaesb} alt="Logo" className="w-12 h-12 object-contain rounded-lg bg-white p-1" />
                     </div>
                     <h2 className="text-4xl font-black text-[#1B365D] uppercase tracking-tighter italic">FAESB</h2>
                     <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400 mt-2">Sistema de Castração</p>

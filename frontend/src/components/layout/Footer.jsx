@@ -1,5 +1,5 @@
 import { Mail, MapPin, Phone, Instagram, ExternalLink } from 'lucide-react';
-import logoFaesb from "/src/assets/faesb.jpg";
+import logoFaesb from "../../assets/faesb.jpg";
 
 export const Footer = () => {
   return (
