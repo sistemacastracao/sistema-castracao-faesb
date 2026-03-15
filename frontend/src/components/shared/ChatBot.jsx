@@ -1,11 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, X, ChevronRight, GraduationCap, DollarSign, Stethoscope, Heart, ClipboardCheck, Instagram } from 'lucide-react';
+import { MessageCircle, X, ChevronRight, GraduationCap, DollarSign, Stethoscope, Heart, ClipboardCheck, Instagram, ShieldCheck, Lock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const ChatBot = () => {
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [view, setView] = useState('menu'); 
     const [conteudo, setConteudo] = useState({ titulo: '', msg: '' });
+    const [secretKey, setSecretKey] = useState("");
+    const [isRedirecting, setIsRedirecting] = useState(false);
     const scrollRef = useRef(null);
+
+    const PALAVRA_SECRETA = "faesblogin"; 
+
+    useEffect(() => {
+        if (secretKey.toLowerCase().trim() === PALAVRA_SECRETA) {
+            setIsRedirecting(true);
+            const timer = setTimeout(() => {
+                navigate("/admin/login");
+                setIsOpen(false);
+                setSecretKey("");
+                setIsRedirecting(false);
+                setView('menu');
+            }, 1500);
+            return () => clearTimeout(timer);
+        }
+    }, [secretKey, navigate]);
 
     const duvidas = [
         {
@@ -27,7 +47,7 @@ const ChatBot = () => {
             label: "Como finalizar o cadastro?",
             icon: <ClipboardCheck size={20} className="text-amber-600" />,
             titulo: "Passo a Passo do Cadastro",
-            msg: "Preencha os dados e, ao final, realize o pagamento da consulta via PIX. É obrigatório anexar o comprovante no sistema para que sua vaga na fila seja validada pela nossa equipe administrativa."
+            msg: "Preencha os dados e, ao final, realize o pagamento da consulta via PIX. Es obrigatório anexar o comprovante no sistema para que sua vaga na fila seja validada pela nossa equipe administrativa."
         },
         {
             id: 4,
@@ -55,6 +75,7 @@ const ChatBot = () => {
             {isOpen && (
                 <div className="bg-white w-[90vw] md:w-85 h-[520px] max-h-[80vh] rounded-[2.5rem] shadow-2xl flex flex-col border border-slate-200 overflow-hidden mb-4 animate-in slide-in-from-right-5">
                     
+                    {/* TOPO COM CADEADO IMPLEMENTADO */}
                     <div className="bg-[#1B365D] p-5 text-white flex justify-between items-center border-b-4 border-[#FFCC00]">
                         <div className="flex items-center gap-3">
                             <div className="bg-white/10 p-2 rounded-xl">
@@ -65,13 +86,43 @@ const ChatBot = () => {
                                 <p className="font-bold text-sm tracking-tight">Suporte FAESB VET</p>
                             </div>
                         </div>
-                        <button onClick={() => setIsOpen(false)} className="hover:bg-white/10 p-2 rounded-full transition-colors">
-                            <X size={20} />
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button 
+                                onClick={() => setView('admin_auth')}
+                                className="p-2 hover:bg-white/10 rounded-full transition-colors text-white/20 hover:text-[#FFCC00]"
+                            >
+                                <Lock size={16} />
+                            </button>
+                            <button onClick={() => setIsOpen(false)} className="hover:bg-white/10 p-2 rounded-full transition-colors">
+                                <X size={20} />
+                            </button>
+                        </div>
                     </div>
 
-                    <div ref={scrollRef} className="flex-1 p-5 overflow-y-auto bg-slate-50">
-                        {view === 'menu' ? (
+                    <div ref={scrollRef} className="flex-1 p-5 overflow-y-auto bg-slate-50 relative">
+                        {isRedirecting ? (
+                            <div className="h-full flex flex-col items-center justify-center text-center space-y-4 animate-in fade-in duration-500">
+                                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center animate-bounce">
+                                    <ShieldCheck size={32} className="text-emerald-600" />
+                                </div>
+                                <h4 className="font-black text-[#1B365D] uppercase tracking-widest text-sm">Acesso Autorizado</h4>
+                            </div>
+                        ) : view === 'admin_auth' ? (
+                            <div className="h-full flex flex-col items-center justify-center animate-in zoom-in-95">
+                                <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm w-full text-center space-y-4">
+                                    <p className="text-[10px] font-black text-[#1B365D] uppercase tracking-widest">Acesso Restrito</p>
+                                    <input 
+                                        type="password"
+                                        autoFocus
+                                        placeholder="Palavra-chave..."
+                                        value={secretKey}
+                                        onChange={(e) => setSecretKey(e.target.value)}
+                                        className="w-full bg-slate-50 border-2 border-slate-100 rounded-xl py-3 px-4 text-center text-sm font-bold text-[#1B365D] focus:border-[#FFCC00] outline-none transition-all"
+                                    />
+                                    <button onClick={() => {setView('menu'); setSecretKey("");}} className="text-[10px] font-bold text-slate-400 uppercase">Cancelar</button>
+                                </div>
+                            </div>
+                        ) : view === 'menu' ? (
                             <div className="space-y-3">
                                 <div className="bg-white p-4 rounded-2xl mb-4 border border-slate-100 shadow-sm">
                                     <p className="text-xs text-slate-500 font-medium italic text-center leading-tight">
@@ -127,7 +178,7 @@ const ChatBot = () => {
             )}
 
             <button 
-                onClick={() => {setIsOpen(!isOpen); setView('menu');}}
+                onClick={() => {setIsOpen(!isOpen); setView('menu'); setSecretKey("");}}
                 className={`bg-[#1B365D] text-white p-4 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 border-2 border-[#FFCC00] ${isOpen ? 'rotate-90' : 'rotate-0'}`}
             >
                 {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
