@@ -1,0 +1,17 @@
+{
+  "short_name": "Pólo Tatuí",
+  "name": "FAESB - Sistema de Castração",
+  "id": "/",
+  "icons": [
+    {
+      "src": "logo512.png",
+      "sizes": "768x768",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#2196F3",
+  "background_color": "#ffffff"
+}
